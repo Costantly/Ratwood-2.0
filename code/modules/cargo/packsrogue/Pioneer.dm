@@ -253,8 +253,3 @@
     name = "Blackpowder stick"
     cost = 35
     contains = list(/obj/item/tntstick)
-
-/datum/supply_pack/rogue/Pioneer/bomb_satchel
-    name = "Bomb satchel"
-    cost = 65
-    contains = list(/obj/item/satchel_bomb)
