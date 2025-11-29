@@ -44,12 +44,18 @@
 		//passively heal even wounds with no passive healing
 		heal_wounds(1)
 
-	//Psydonites get 0.6, for passive heals. Everyone else gets wound specific passive healing.
 	//You don't heal your wounds if below a certain blood volume, or you're skullcracked. Sorry, buddy.
 	//Death is checked in on_life for wounds, so no need to set it here.
-	//Corpses don't passive heal wounds, unless Psydonite. For some reason.
+	//Corpses don't passive heal wounds, regardless.
 	if(blood_volume > BLOOD_VOLUME_SURVIVE && !HAS_TRAIT(src, TRAIT_PARALYSIS))
 		handle_wounds()
+	//Funny thing here, however. If they ARE skullcracked, we throw them a bone. In direct opposition to the above.
+	//Passive heals until they get out of skullcrack state. Just so they're not perma skullcracked without doctors.
+	//You can still break legs and the like without it passive healing. Do that instead.
+	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
+		var/list/wounds = get_wounds()
+		if(wounds.len > 0)
+			heal_wounds(1, list(/datum/wound/fracture/head, /datum/wound/fracture/head/brain))
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations
 		return
