@@ -48,7 +48,7 @@
 	//You don't heal your wounds if below a certain blood volume, or you're skullcracked. Sorry, buddy.
 	//Death is checked in on_life for wounds, so no need to set it here.
 	//Corpses don't passive heal wounds, unless Psydonite. For some reason.
-	if (blood_volume > BLOOD_VOLUME_SURVIVE && !HAS_TRAIT(src, TRAIT_PARALYSIS))
+	if(blood_volume > BLOOD_VOLUME_SURVIVE && !HAS_TRAIT(src, TRAIT_PARALYSIS))
 		handle_wounds()
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations
