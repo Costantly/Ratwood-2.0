@@ -56,7 +56,7 @@
 /datum/status_effect/buff/greatsnackbuff
 	id = "greatsnack"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/greatsnackbuff
-	effectedstats = list(STATKEY_CON = 1,¿STATKEY_WIL = 1)
+	effectedstats = list(STATKEY_CON = 1,STATKEY_WIL = 1)
 	duration = 10 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/greatsnackbuff

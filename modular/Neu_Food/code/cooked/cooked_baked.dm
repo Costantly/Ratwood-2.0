@@ -395,7 +395,6 @@
 	slice_batch = FALSE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	eat_effect = /datum/status_effect/buff/foodbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/raisinbread/update_icon()
 	if(slices_num)
@@ -429,7 +428,6 @@
 	tastes = list("spelt" = 1,"dried fruit" = 1)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
-	eat_effect = /datum/status_effect/buff/foodbuff
 	dropshrink = 0.8
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_grenz
