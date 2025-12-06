@@ -2136,9 +2136,13 @@
 	name = "elven shortsword"
 	desc = "This flowing sword is of classic elven design."
 	icon_state = "elfsword"
+	sellprice = 40
+	sheathe_icon = "elfsword"
 
 /obj/item/rogueweapon/sword/long/elf
 	name = "elven longsword"
 	desc = "This mighty flowing sword is of classic elven design."
 	icon = 'icons/roguetown/weapons/64.dmi'
 	icon_state = "elflongsword"
+	sellprice = 50
+	sheathe_icon = "elfsword"
