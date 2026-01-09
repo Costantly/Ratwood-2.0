@@ -2018,7 +2018,8 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 					if(new_color == "None")
 						vars["loadout_[slot]_hex"] = null
 					else
-						vars["loadout_[slot]_hex"] = new_color
+						// Look up the hex value from colorlist
+						vars["loadout_[slot]_hex"] = colorlist[new_color]
 					open_vices_menu(usr)
 				return
 	

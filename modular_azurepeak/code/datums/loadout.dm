@@ -100,8 +100,8 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	triumph_cost = 2
 
 /datum/loadout_item/aaneedle
-	name = "Ancient Alloy Needle"
-	path = /obj/item/needle/aalloy
+	name = "Thorn Needle"
+	path = /obj/item/needle/thorn
 	triumph_cost = 2
 
 /datum/loadout_item/bandage_roll
@@ -1832,3 +1832,112 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/cooking_recipes
 	name = "Guide to Cooking"
 	path = /obj/item/recipe_book/cooking
+
+//COSMETICS (Perfumes & Lipsticks)
+
+/datum/loadout_item/perfume_lavender
+	name = "Lavender Perfume"
+	path = /obj/item/perfume/lavender
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_cherry
+	name = "Cherry Perfume"
+	path = /obj/item/perfume/cherry
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_rose
+	name = "Rose Perfume"
+	path = /obj/item/perfume/rose
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_jasmine
+	name = "Jasmine Perfume"
+	path = /obj/item/perfume/jasmine
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_mint
+	name = "Mint Perfume"
+	path = /obj/item/perfume/mint
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_vanilla
+	name = "Vanilla Perfume"
+	path = /obj/item/perfume/vanilla
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_pear
+	name = "Pear Perfume"
+	path = /obj/item/perfume/pear
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_strawberry
+	name = "Strawberry Perfume"
+	path = /obj/item/perfume/strawberry
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_cinnamon
+	name = "Cinnamon Perfume"
+	path = /obj/item/perfume/cinnamon
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_frankincense
+	name = "Frankincense Perfume"
+	path = /obj/item/perfume/frankincense
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_sandalwood
+	name = "Sandalwood Perfume"
+	path = /obj/item/perfume/sandalwood
+	triumph_cost = 2
+
+/datum/loadout_item/perfume_myrrh
+	name = "Myrrh Perfume"
+	path = /obj/item/perfume/myrrh
+	triumph_cost = 2
+
+/datum/loadout_item/lipstick_red
+	name = "Red Lipstick"
+	path = /obj/item/azure_lipstick
+	triumph_cost = 2
+
+/datum/loadout_item/lipstick_jade
+	name = "Jade Lipstick"
+	path = /obj/item/azure_lipstick/jade
+	triumph_cost = 2
+
+/datum/loadout_item/lipstick_purple
+	name = "Purple Lipstick"
+	path = /obj/item/azure_lipstick/purple
+	triumph_cost = 2
+
+/datum/loadout_item/lipstick_black
+	name = "Black Lipstick"
+	path = /obj/item/azure_lipstick/black
+	triumph_cost = 2
+
+/datum/loadout_item/hair_dye
+	name = "Hair Dye Cream"
+	path = /obj/item/hair_dye_cream
+	triumph_cost = 2
+
+//ADDITIONAL ITEMS
+
+/datum/loadout_item/satchel
+	name = "Satchel"
+	path = /obj/item/storage/backpack/rogue/satchel
+	triumph_cost = 5
+
+/datum/loadout_item/pouches
+	name = "Pouche"
+	path = /obj/item/storage/belt/rogue/pouch
+	triumph_cost = 3
+
+/datum/loadout_item/swatchbook
+	name = "Tailor's Swatchbook"
+	path = /obj/item/book/rogue/swatchbook
+	triumph_cost = 3
+
+/datum/loadout_item/parasol
+	name = "Paper Parasol"
+	path = /obj/item/rogueweapon/mace/parasol
+	triumph_cost = 3
