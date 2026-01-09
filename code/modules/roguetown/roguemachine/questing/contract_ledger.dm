@@ -47,7 +47,7 @@
 	contents += "<a href='?src=[REF(src)];consultcontracts=1'>Consult Contracts</a><br>"
 	contents += "<a href='?src=[REF(src)];turnincontract=1'>Turn in Contract</a><br>"
 	contents += "<a href='?src=[REF(src)];abandoncontract=1'>Abandon Contract</a><br>"
-	if(user.job == "Steward" || user.job == "Clerk" || user.job == "Merchant"|| user.job == "Shophand"))
+	if(user.job == "Steward" || user.job == "Clerk" || user.job == "Merchant"|| user.job == "Shophand")
 		contents += "<a href='?src=[REF(src)];printcontracts=1'>Print Issued Contracts</a><br>"
 	contents += "</center>"
 	var/datum/browser/popup = new(user, "Grand Contract Ledger", "", 500, 300)
@@ -119,7 +119,7 @@
 	attached_quest.deposit_amount = attached_quest.calculate_deposit()
 
 	// Set giver or receiver
-	if(user.job != "Merchant" && user.job != "Steward"  && user.job != "Clerk" && user.job !="Shophand"))
+	if(user.job != "Merchant" && user.job != "Steward"  && user.job != "Clerk" && user.job !="Shophand")
 		attached_quest.quest_receiver_reference = WEAKREF(user)
 		attached_quest.quest_receiver_name = user.real_name
 	else
