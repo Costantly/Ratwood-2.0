@@ -211,14 +211,14 @@
 	name = "Divine Fetch"
 	miracle = TRUE
 	devotion_cost = 10
-	invocation = null
+	invocations = list()
 	associated_skill = /datum/skill/magic/holy
 
 /obj/effect/proc_holder/spell/invoked/projectile/repel/miracle
 	name = "Divine Repel"
 	miracle = TRUE
 	devotion_cost = 14
-	invocation = null
+	invocations = list()
 	associated_skill = /datum/skill/magic/holy
 
 #define NOTHING "nothing"
