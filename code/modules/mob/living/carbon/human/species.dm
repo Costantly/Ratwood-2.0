@@ -1811,8 +1811,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				I.take_damage(1, BRUTE, I.d_type)
 				//Blunt chipping, no matter what. Assuming it has damage. This is done after armour damage.
 				if(user.used_intent.blunt_chipping)//We won't check for blunt. Just that it's able. For funny reasons.
-					H.apply_damage(Iforce * user.used_intent.blunt_chip_strength, BRUTE, def_zone)//, spread_damage = TRUE)
-					H.next_attack_msg += " <span class='warning'>and yet the force punches through!</span>"
+					var/blunt_chip_block = H.run_armor_check(selzone, "blunt", armor_penetration = 80)//I hate this. So much.
+					H.apply_damage(Iforce * user.used_intent.blunt_chip_strength, BRUTE, def_zone, blunt_chip_block)//, spread_damage = TRUE)
+					H.next_attack_msg += " <span class='warning'>and yet the force punches through!</span>"//But sometimes it lies!
 		if(!nodmg)
 			var/datum/wound/crit_wound = affecting.bodypart_attacked_by(user.used_intent.blade_class, (Iforce * weakness) * ((100-(armor_block+armor))/100), user, selzone, crit_message = TRUE, weapon = I)
 			if(should_embed_weapon(crit_wound, I))
