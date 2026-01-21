@@ -457,4 +457,4 @@
 	else
 		direction_text = "nowhere discernible"
 
-	to_chat(user, span_notice("The Undermaiden pulls on your hand, guiding you [direction_text].[distance_text]"))
+	to_chat(user, span_notice("The Undermaiden pulls on your hand, guiding you [direction_text]. [distance_text]"))
