@@ -8,6 +8,7 @@
 	name = "Émissaire"
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_NO_CONSTRUCT
+	horse = /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck/tame/saddled		//look at my horse, my horse is amazing
 	greet_text = "You are an Otavan Emissary, traveling with a small retinue and a Psydonite preacher to represent your homeland.\
 	 What exactly you have been sent here to speak about- only you know."
 	advclass_cat_rolls = list(CTAG_OTAVAN_ENVOY = 20)
@@ -19,9 +20,9 @@
 	category_tags = list(CTAG_OTAVAN_ENVOY)
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_CON = -1,		//You're not really fight-y. Get behind your knight, punk.
+		STATKEY_STR = -1,
+		STATKEY_CON = -1,		//You're not really fight-y. Get behind your knight, punk. Expert swords bc you probably danced a lot with it but otherwise you suck.
 		STATKEY_WIL = 2,
-		STATKEY_PER = 1,
 		STATKEY_SPD = 2,
 		STATKEY_FOR = 1,
 	)
@@ -30,7 +31,7 @@
 		/datum/skill/combat/crossbows= SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/maces= SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives= SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/wrestling= SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling= SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed= SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming= SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing= SKILL_LEVEL_APPRENTICE,
@@ -72,6 +73,7 @@
 	name = "Gendarme"
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_NO_CONSTRUCT
+	horse = /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck/tame/saddled
 	advclass_cat_rolls = list(CTAG_OTAVAN_KNIGHT = 20)
 
 /datum/advclass/otavan_knight
@@ -149,18 +151,16 @@
 	subclass_stats = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/slings = SKILL_LEVEL_APPRENTICE,	//Your main point is ranged.
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/traps = SKILL_LEVEL_APPRENTICE,
 	)
 
@@ -206,7 +206,7 @@
 		STATKEY_INT = 1,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 3,
-		STATKEY_SPD = -1,
+		STATKEY_SPD = -2,
 	)
 	subclass_stats = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_EXPERT,		//everybody was kung-fu fighting
@@ -247,7 +247,7 @@
 		/obj/item/needle = 1,
 		/obj/item/reagent_containers/food/snacks/rogue/meat/salami = 1,
 		/obj/item/reagent_containers/food/snacks/rogue/bread = 1,
-		/obj/item/reagent_containers/glass/bottle/rogue/redwine = 1,	//share some of psydon's body and psydon's blood with your crew
+		/obj/item/reagent_containers/glass/bottle/rogue/redwine = 1,	//share some of psydon's body and psydon's blood with your crew. Ask for a knife though.
 	)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T3, passive_gain = CLERIC_REGEN_WEAK, start_maxed = TRUE) 
@@ -281,7 +281,6 @@
 		/datum/skill/misc/athletics= SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/medicine= SKILL_LEVEL_APPRENTICE,		//You know a thing or two
 		/datum/skill/misc/stealing= SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/riding= SKILL_LEVEL_JOURNEYMAN,
 	)
@@ -304,7 +303,7 @@
 	backpack_contents = list(
 		/obj/item/natural/feather = 1,
 		/obj/item/paper/scroll = 4,
-		/obj/item/storage/belt/rogue/pouch/coins/rich = 1,		//you are the piggybank.
+		/obj/item/storage/belt/rogue/pouch/coins/rich = 1,		//you are the piggybank and the dude taking notes.
 		/obj/item/storage/belt/rogue/pouch/coins/mid = 1,
 		)
 	H.cmode_music = 'sound/music/combat_routier.ogg'
