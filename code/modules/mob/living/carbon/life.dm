@@ -12,8 +12,8 @@
 		if(damageoverlaytemp)
 			damageoverlaytemp = 0
 			update_damage_hud()
-	if(!client) // Clientless? Handle organs and wounds every OTHER tick. (carbon AI as well, we'll see how this goes.)
-		if(times_fired % 2 == 0)
+	if(!client) // Clientless? Handle organs and wounds every THIRD tick. (carbon AI as well, we'll see how this goes.)
+		if(times_fired % 3 == 0)
 			handle_organs()
 			handle_wounds()
 			handle_blood()
