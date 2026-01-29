@@ -156,6 +156,8 @@ SUBSYSTEM_DEF(familytree)
 /datum/controller/subsystem/familytree/proc/AddLocal(mob/living/carbon/human/H, status)
 	if(!H || !status || istype(H, /mob/living/carbon/human/dummy))
 		return
+	if(H.stat == DEAD || !H.client)
+		return
 	//Exclude princes and princesses from having their parentage calculated.
 	if(H.mind?.assigned_role in excluded_jobs)
 		return
@@ -338,6 +340,8 @@ SUBSYSTEM_DEF(familytree)
 		for(var/datum/heritage/house in families)
 			for(var/datum/family_member/M in house.members)
 				if(M.person && M.person.real_name == H.setspouse)
+					if(M.person.stat == DEAD || !M.person.client)
+						break
 					if(M.person.xenophobe == 1 && M.person.dna.species.name != our_race)
 						break
 					if(M.person.xenophobe == 2 && M.person.restricted_species && our_race != M.person.restricted_species)
@@ -458,6 +462,8 @@ SUBSYSTEM_DEF(familytree)
 		var/has_single_adult = FALSE
 		for(var/datum/family_member/member in house.members)
 			if(member.person && !member.spouses.len)
+				if(member.person.stat == DEAD || !member.person.client)
+					continue
 				// Check setspouse compatibility
 				if(H.setspouse && member.person.real_name == H.setspouse)
 					eligible_houses.Insert(1, house) // High priority
@@ -492,6 +498,8 @@ SUBSYSTEM_DEF(familytree)
 		// Find a spouse
 		for(var/datum/family_member/member in house.members)
 			if(member.person && !member.spouses.len)
+				if(member.person.stat == DEAD || !member.person.client)
+					continue
 				// Check compatibility
 				var/compatible = FALSE
 				if(H.setspouse && member.person.real_name == H.setspouse)
@@ -531,6 +539,8 @@ SUBSYSTEM_DEF(familytree)
 
 	for(var/mob/living/carbon/human/potential_spouse in viable_spouses)
 		if(!potential_spouse || potential_spouse == H || potential_spouse.spouse_mob)
+			continue
+		if(potential_spouse.stat == DEAD || !potential_spouse.client)
 			continue
 		// Check if they are mutually setspouse
 		var/mutual_setspouse = (H.setspouse == potential_spouse.real_name) && (potential_spouse.setspouse == H.real_name)
