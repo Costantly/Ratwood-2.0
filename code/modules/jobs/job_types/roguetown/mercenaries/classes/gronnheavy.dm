@@ -34,8 +34,8 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 	)
 
-	/datum/outfit/job/roguetown/mercenary/gronnheavy
-		allowed_patrons = ALL_INHUMEN_PATRONS
+/datum/outfit/job/roguetown/mercenary/gronnheavy
+	allowed_patrons = ALL_INHUMEN_PATRONS
 
 /datum/outfit/job/roguetown/mercenary/gronnheavy/pre_equip(mob/living/carbon/human/H)
 	..()
