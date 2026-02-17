@@ -13,10 +13,10 @@ Format:
 	votable (is this map votable)
 endmap
 
-map roguetest
+map dun_manor
 endmap
 
-map dun_manor
+map roguetest
 endmap
 
 map dun_world

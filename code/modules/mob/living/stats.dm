@@ -141,7 +141,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFSTR--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFSTR++
 			STASTR = newamt
@@ -161,7 +161,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFPER--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFPER++
 			STAPER = newamt
@@ -183,7 +183,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFINT--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFINT++
 			STAINT = newamt
@@ -203,7 +203,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFCON--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFCON++
 			STACON = newamt
@@ -223,7 +223,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFEND--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFEND++
 			STAWIL = newamt
@@ -243,7 +243,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFSPE--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFSPE++
 			STASPD = newamt
@@ -264,7 +264,7 @@
 			while(newamt < 1)
 				newamt++
 				BUFLUC--
-			while(newamt > 20)
+			while(newamt > 50)
 				newamt--
 				BUFLUC++
 			STALUC = newamt
