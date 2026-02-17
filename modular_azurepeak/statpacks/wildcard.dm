@@ -10,6 +10,11 @@
 	desc = "The first or the last - let destiny's fickle loom decree what your fate shall be."
 	stat_array = list(STAT_STRENGTH = list(-2, 2), STAT_PERCEPTION = list(-2, 2), STAT_INTELLIGENCE = list(-2, 2), STAT_CONSTITUTION = list(-2, 2), STAT_WILLPOWER = list(-2, 2), STAT_SPEED = list(-2, 2), STAT_FORTUNE = list(-2, 2))
 
+/datum/statpack/wildcard/tester
+	name = "Tester"
+	desc = "20 TO ALL!"
+	stat_array = list(STAT_STRENGTH = 20, STAT_PERCEPTION = 20, STAT_INTELLIGENCE = 20, STAT_CONSTITUTION = 20, STAT_WILLPOWER = 20, STAT_SPEED = 20, STAT_FORTUNE = 20)
+
 /datum/statpack/wildcard/frail
 	name = "Frail"
 	desc = "The growing dark lines your vision more with every passing day: your flesh and mind are failing you, and destiny has turned her gaze from you. How will your tale endure such hardship?"

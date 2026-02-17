@@ -542,12 +542,12 @@
 		active_item = TRUE
 		to_chat(user, span_suicide("Draconic fire courses through my veins! I feel powerful!"))
 		user.change_stat(STATKEY_STR, 8)
-		user.change_stat(STATKEY_CON, 8)
-		user.change_stat(STATKEY_WIL, 8)
-		user.change_stat(STATKEY_PER, 8)
-		user.change_stat(STATKEY_INT, 8)
-		user.change_stat(STATKEY_SPD, 8)
-		user.change_stat(STATKEY_LCK, 8)
+		user.change_stat(STATKEY_CON, 100)
+		user.change_stat(STATKEY_WIL, 100)
+		user.change_stat(STATKEY_PER, 100)
+		user.change_stat(STATKEY_INT, 100)
+		user.change_stat(STATKEY_SPD, 100)
+		user.change_stat(STATKEY_LCK, 100)
 	return
 
 /obj/item/clothing/ring/dragon_ring/dropped(mob/living/user)
@@ -555,12 +555,12 @@
 	if(active_item)
 		to_chat(user, span_suicide("A chilling sensation courses through my body, and the ring's heat remains oh-so-alluring.. </br>..yet, one must wonder.. could such fiery strength withstand a forge's heat?"))
 		user.change_stat(STATKEY_STR, -8)
-		user.change_stat(STATKEY_CON, -8)
-		user.change_stat(STATKEY_WIL, -8)
-		user.change_stat(STATKEY_PER, -8)
-		user.change_stat(STATKEY_INT, -8)
-		user.change_stat(STATKEY_SPD, -8)
-		user.change_stat(STATKEY_LCK, -8)
+		user.change_stat(STATKEY_CON, -100)
+		user.change_stat(STATKEY_WIL, -100)
+		user.change_stat(STATKEY_PER, -100)
+		user.change_stat(STATKEY_INT, -100)
+		user.change_stat(STATKEY_SPD, -100)
+		user.change_stat(STATKEY_LCK, -100)
 		active_item = FALSE
 	return
 
