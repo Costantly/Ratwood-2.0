@@ -463,7 +463,7 @@
 		playsound(user, 'sound/misc/mat/endout.ogg', 50, TRUE, ignore_walls = FALSE)
 		if(user.getorganslot(ORGAN_SLOT_PENIS))
 			var/obj/item/organ/testicles/testes = user.getorganslot(ORGAN_SLOT_TESTICLES)
-			C.reagents.add_reagent(/datum/reagent/erpjuice/cum, testes?.ball_size > DEFAULT_TESTICLES_SIZE ? 6 : 3)
+			C.reagents.add_reagent(/datum/reagent/erpjuice/cum, testes?.ball_size > DEFAULT_TESTICLES_SIZE ? 60 : 30)
 		else
 			C.reagents.add_reagent(/datum/reagent/erpjuice/femcum, 2)
 	after_ejaculation()

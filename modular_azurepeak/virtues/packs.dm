@@ -118,3 +118,22 @@
 	- Ugly: Unseemly appearance, immune to corpse stink (UNSEEMLY + NOSTINK traits)\n\
 	- Tolerant: No stress from certain species, broad acceptance\n\
 	- Deadened: Completely emotionless (NOMOOD trait)"
+
+// I DO LOVE PLAYING ALONE!
+/datum/virtue/pack/master
+	name = "Master (0 TRI)"
+	desc = "JUST FOR ME."
+	triumph_cost = 0
+	granted_virtues = list(
+		/datum/virtue/utility/blacksmith,
+		/datum/virtue/utility/tailor,
+		/datum/virtue/utility/physician,
+		/datum/virtue/utility/hunter,
+		/datum/virtue/utility/artificer,
+		/datum/virtue/utility/mining,
+		/datum/virtue/utility/resident,
+		/datum/virtue/utility/homesteader,
+		/datum/virtue/utility/woodwalker,
+		/datum/virtue/utility/socialite
+	)
+	custom_text = "Grants... a lot of things."
