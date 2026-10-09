@@ -80,6 +80,10 @@
 		if(amount_healed)
 			heal_amount -= amount_healed
 			healed_any = TRUE
+	if(HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
+		if(!length(get_wounds()) && !length(get_embedded_objects()))
+			simple_bleeding = 0
+			bleed_rate = 0
 	return healed_any
 
 /// Simple version for adding a wound - DO NOT CALL THIS ON CARBON MOBS!
@@ -199,6 +203,8 @@
 		if(applied)
 			if(user?.client)
 				record_round_statistic(STATS_CRITS_MADE)
+			if(client || mind)
+				log_combat(user, src, "critically wounded", null, "([applied.name] to [parse_zone(zone_precise)])", severe = TRUE)
 			return applied
 	return FALSE
 

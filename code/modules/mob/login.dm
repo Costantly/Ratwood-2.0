@@ -24,6 +24,8 @@
 
 
 /mob/Login()
+	if(!client) // sleeping code can result in the client being already gone
+		return FALSE
 	GLOB.player_list |= src
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
@@ -77,6 +79,9 @@
 
 		if(client.player_details.player_actions.len)
 			for(var/datum/action/A in client.player_details.player_actions)
+				if(QDELETED(A))
+					client.player_details.player_actions -= A
+					continue
 				A.Grant(src)
 
 		for(var/foo in client.player_details.post_login_callbacks)
@@ -94,6 +99,14 @@
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	if(client)
 		client.preload_music()
+
+	// Re-apply per-client noise verb filtering after a client attaches to a human body.
+	// Human Initialize() runs before client prefs are available, so this keeps
+	// "Hide Unavailable Noises" consistent on login/reconnect/body transfer.
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.update_tongue_noise_verbs()
+		H.update_keen_ears_verb()
 
 /**
  * Checks if the attached client is an admin and may deadmin them

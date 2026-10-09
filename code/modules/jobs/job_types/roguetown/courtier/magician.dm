@@ -26,7 +26,7 @@
 	// Can't get very far as a magician if you can't chant spells now can you?
 	vice_restrictions = list(/datum/charflaw/mute)
 
-	job_traits = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T4, TRAIT_SEEPRICES, TRAIT_INTELLECTUAL, TRAIT_ALCHEMY_EXPERT, TRAIT_NOBLE)
+	job_traits = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T4, TRAIT_SEEPRICES, TRAIT_INTELLECTUAL, TRAIT_ALCHEMY_EXPERT, TRAIT_NOBLE, TRAIT_MAGEDEXTERITY)
 	job_subclasses = list(
 		/datum/advclass/courtmage
 	)
@@ -47,6 +47,7 @@
 		STATKEY_STR = -1,
 		STATKEY_CON = -1,
 	)
+	virtue_restrictions = list(/datum/virtue/combat/tough_hide)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
@@ -109,9 +110,20 @@
 	belt = /obj/item/storage/belt/rogue/leather/plaquesilver
 	beltr = /obj/item/storage/keyring/mage
 	beltl = /obj/item/storage/magebag/associate
-	id = /obj/item/clothing/ring/gold
+	id = /obj/item/scomstone/garrison
 	r_hand = /obj/item/rogueweapon/woodstaff/riddle_of_steel/magos
 	backl = /obj/item/storage/backpack/rogue/satchel
+	if(SSmapping.current_map.map_name == "Desert Town")
+		cloak = null
+		head = /obj/item/clothing/head/roguetown/jafar
+		armor = /obj/item/clothing/suit/roguetown/shirt/jafar
+		belt = /obj/item/storage/belt/rogue/leather/jafar
+		pants = /obj/item/clothing/under/roguetown/sirwal
+		shoes = /obj/item/clothing/shoes/roguetown/shalal
+		r_hand = /obj/item/rogueweapon/woodstaff/riddle_of_steel/serpent
+	if(SSmapping.current_map.map_name == "Rockhill")
+		armor = /obj/item/clothing/suit/roguetown/armor/leather/newkeep/magos
+		cloak = null
 	backpack_contents = list(
 		/obj/item/reagent_containers/glass/bottle/rogue/poison,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,

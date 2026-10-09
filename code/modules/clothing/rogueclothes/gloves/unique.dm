@@ -5,16 +5,38 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/race_armor.dmi'
 	icon_state = "welfhand"
 	item_state = "welfhand"
-	armor = list("blunt" = 100, "slash" = 10, "stab" = 110, "piercing" = 20, "fire" = 0, "acid" = 0)//Resistant to blunt and stab, super weak to slash.
+	armor = ARMOR_BLACKOAK //Resistant to blunt and stab, super weak to slash.
 	prevent_crits = list(BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)
 	resistance_flags = FIRE_PROOF
 	blocksound = SOFTHIT
-	max_integrity = 200
+	max_integrity = ARMOR_INT_SIDE_IRON
+	smeltresult = /obj/item/rogueore/coal
 	anvilrepair = /datum/skill/craft/carpentry
-	cold_protection = null
-	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	sewrepair = FALSE
 	heat_protection = HAND_LEFT | HAND_RIGHT
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
+
+/// Dendor ritual variant of the woad elven gloves — grown from the Treefather's sanctified root.
+/obj/item/clothing/gloves/roguetown/elven_gloves/druidic
+	name = "blessed druid gloves"
+	desc = "Gauntlets woven from roots nurtured by the Treefather's blessing. The living wood absorbs impacts and softens cuts that would otherwise tear through."
+	armor = list("blunt" = 100, "slash" = 65, "stab" = 130, "piercing" = 20, "fire" = 0, "acid" = 0)
+
+/obj/item/clothing/gloves/roguetown/elven_gloves/druidic/Initialize(mapload)
+	. = ..()
+	set_light(1, 1, 2, l_color = "#58C86A")
+	add_filter("druid_blessed_glow", 2, list("type" = "outline", "color" = "#58C86A", "alpha" = 95, "size" = 1))
+
+/obj/item/clothing/gloves/roguetown/elven_gloves/druidic/pickup(mob/user)
+	. = ..()
+	if(!istype(user, /mob/living/carbon/human))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.patron?.type == /datum/patron/divine/dendor)
+		return
+	H.electrocute_act(30, src)
+	H.mob_timers["kneestinger"] = world.time
+	to_chat(H, span_warning("[name] rejects my grasp — only the Treefather's faithful may bear such a gift!"))
 
 /obj/item/clothing/gloves/roguetown/bandages
 	name = "bandages"
@@ -37,8 +59,8 @@
 	nudist_approved = TRUE
 	salvage_result = /obj/item/natural/cloth
 	unarmed_bonus = 1.125 //Sublight armor with minimal durability, but a greater unarmed damage multiplier. More damage than leather, less than maille. Loadout-selectable.
-	cold_protection = null
-	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	cold_protection = HAND_LEFT | HAND_RIGHT
+	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
 	heat_protection = HAND_LEFT | HAND_RIGHT
 	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
 

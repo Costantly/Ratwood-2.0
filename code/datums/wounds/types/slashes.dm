@@ -71,9 +71,12 @@
 #define SLASH_UPG_CLAMP_RAW 2.2
 #define SLASH_ARMORED_BLEED_CLAMP 9
 
-/datum/wound/dynamic/slash/upgrade(dam, armor)
+/datum/wound/dynamic/slash/upgrade(dam, armor, exposed)
 	whp += (dam * SLASH_UPG_WHPRATE)
-	set_bleed_rate(bleed_rate + clamp((dam * SLASH_UPG_BLEEDRATE), 0.1, ((armor > 0) ? SLASH_UPG_CLAMP_ARMORED : SLASH_UPG_CLAMP_RAW)))
+	var/clamp_max = ((armor > 0) ? SLASH_UPG_CLAMP_ARMORED : SLASH_UPG_CLAMP_RAW)
+	if(exposed)
+		clamp_max = SLASH_UPG_CLAMP_RAW
+	set_bleed_rate(bleed_rate + clamp((dam * SLASH_UPG_BLEEDRATE), 0.1, clamp_max))
 	sew_threshold += (dam * SLASH_UPG_SEWRATE)
 	woundpain += (dam * SLASH_UPG_PAINRATE)
 	armor_check(armor, SLASH_ARMORED_BLEED_CLAMP)
@@ -120,7 +123,7 @@
 
 /datum/wound/slash/disembowel/on_mob_gain(mob/living/affected)
 	. = ..()
-	affected.emote("paincrit", TRUE)
+	affected.emote("paincrit", forced = TRUE)
 	affected.Slowdown(20)
 	shake_camera(affected, 2, 2)
 
@@ -130,8 +133,7 @@
 	var/atom/drop_location = gutted.drop_location()
 	var/list/spilled_organs = list()
 	for(var/obj/item/organ/organ as anything in gutted.internal_organs)
-		var/org_zone = check_zone(organ.zone)
-		if(org_zone != BODY_ZONE_CHEST)
+		if(organ.zone_checked != BODY_ZONE_CHEST)
 			continue
 		if(!(organ.slot in affected_organs))
 			continue
@@ -220,9 +222,12 @@
 #define LASHING_UPG_CLAMP_RAW 3.5
 #define LASHING_ARMORED_BLEED_CLAMP 2
 
-/datum/wound/dynamic/lashing/upgrade(dam, armor)
+/datum/wound/dynamic/lashing/upgrade(dam, armor, exposed)
 	whp += (dam * LASHING_UPG_WHPRATE)
-	set_bleed_rate(bleed_rate + clamp((dam * LASHING_UPG_BLEEDRATE), 0.1, ((armor > 0) ? LASHING_UPG_CLAMP_ARMORED : LASHING_UPG_CLAMP_RAW)))
+	var/clamp_max = ((armor > 0) ? LASHING_UPG_CLAMP_ARMORED : LASHING_UPG_CLAMP_RAW)
+	if(exposed)
+		clamp_max = LASHING_UPG_CLAMP_RAW
+	set_bleed_rate(bleed_rate + clamp((dam * LASHING_UPG_BLEEDRATE), 0.1, clamp_max))
 	sew_threshold += (dam * LASHING_UPG_SEWRATE)
 	woundpain += (dam * LASHING_UPG_PAINRATE)
 	armor_check(armor, LASHING_ARMORED_BLEED_CLAMP)
@@ -330,3 +335,22 @@
 	woundpain = 22
 	sewn_woundpain = 14
 	sew_threshold = 95
+
+/datum/wound/slash/boar_gore
+	name = "tusk shaped wound"
+	check_name = span_userdanger("<B>GUTS</B>")
+	severity = WOUND_SEVERITY_FATAL
+	crit_message = list(
+		"%VICTIM is gored!",
+	)
+	sound_effect = 'sound/combat/crit2.ogg'
+	whp = 100
+	sewn_whp = 35
+	bleed_rate = 10
+	sewn_bleed_rate = 0.8
+	clotting_rate = 0.02
+	sewn_clotting_rate = 0.02
+	clotting_threshold = 10
+	sewn_clotting_threshold = 0.5
+	sew_threshold = 150
+	critical = TRUE

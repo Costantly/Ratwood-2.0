@@ -16,7 +16,8 @@
 	return ..()
 
 /mob/living/carbon/human/Unconscious(amount, updating = 1, ignore_canstun = 0)
-	amount = dna.species.spec_stun(src,amount)
+	if(dna?.species)
+		amount = dna.species.spec_stun(src,amount)
 	if(HAS_TRAIT(src, TRAIT_HEAVY_SLEEPER))
 		amount *= rand(1.25, 1.3)
 	return ..()
@@ -53,22 +54,28 @@
 	var/modifier = 0
 
 	// Map-specific adjustments
-	if(SSmapping.config.map_name == "Rockhill")	//rockhill temperatures are moderate and wet climate
+	if(SSmapping.current_map.map_name == "Rockhill")	//rockhill temperatures are moderate and wet climate
 	// Time-of-day adjustments
 		if(time_flags & TIME_OF_DAY_BIT_DAY)
 			modifier += 20
 		else if(time_flags & TIME_OF_DAY_BIT_NIGHT)
 			modifier -= 20
 
-	else if(SSmapping.config.map_name == "Desert Town")	//desert map has wild temperature swings
+	else if(SSmapping.current_map.map_name == "Desert Town")	//desert map should feel hotter then other maps
 		if(time_flags & TIME_OF_DAY_BIT_DAY)
 			modifier += 100							//300+100 is 400, in the middle of the 'hot' temperature range
 		else if(time_flags & TIME_OF_DAY_BIT_NIGHT)
-			modifier -= 100							//300-100 is 200, in the middle of the 'cold' temperature range
+			modifier -= 0							//300-0 is 300, in the middle of the 'normal' temperature range
 
-	else if(SSmapping.config.map_name == "Dun World")//Dunworld is colder then the other two maps
+	else if(SSmapping.current_map.map_name == "Build Your Own Settlement")	//desert map should feel hotter then other maps
+		if(time_flags & TIME_OF_DAY_BIT_DAY)
+			modifier += 70							//300+70 is 370, a smidge cooler than the middle of the 'hot' range
+		else if(time_flags & TIME_OF_DAY_BIT_NIGHT)
+			modifier -= 0							//300-0 is 300, in the middle of the 'normal' temperature range
+
+	else if(SSmapping.current_map.map_name == "Dun World")//Dunworld is colder then the other two maps
 		if(time_flags & TIME_OF_DAY_BIT_DAY)
 			modifier += 0							//No bonus for day time temperatures
 		else if(time_flags & TIME_OF_DAY_BIT_NIGHT)
-			modifier -= 120							//300-120 is 180, a bit further towards cold in the 'cold' temperature range
+			modifier -= 60							//300-60 is 240, just enough for cold temperature outside, but not cold enough to cause hypothermia on water and other problems
 	return modifier

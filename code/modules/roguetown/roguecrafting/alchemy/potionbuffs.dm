@@ -19,7 +19,7 @@
 	if(owner.bodytemperature > BODYTEMP_NORMAL_MAX)
 		owner.adjust_bodytemperature(-5)
 	if(owner.bodytemperature < BODYTEMP_NORMAL_MIN)
-		owner.adjust_bodytemperature(-5)
+		owner.adjust_bodytemperature(5)
 
 /datum/status_effect/buff/alch/strengthpot
 	id = "strpot"
@@ -99,11 +99,11 @@
 /datum/status_effect/buff/alch/fire_resist/on_apply()
 	. = ..()
 	if(!HAS_TRAIT(owner, TRAIT_NOFIRE))
-		ADD_TRAIT(owner, TRAIT_NOFIRE, TRAIT_STATUS_EFFECT)
+		ADD_TRAIT(owner, TRAIT_NOFIRE, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/buff/alch/fire_resist/on_remove()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_NOFIRE, TRAIT_STATUS_EFFECT)
+	REMOVE_TRAIT(owner, TRAIT_NOFIRE, TRAIT_STATUS_EFFECT(id))
 
 /atom/movable/screen/alert/status_effect/buff/alch/fire_resist
 	name = "Fire Resistance"

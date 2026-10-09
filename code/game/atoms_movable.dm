@@ -72,6 +72,8 @@
 		target = get_step_multiz(source, direction)
 		if(!target)
 			return FALSE
+	if(HAS_TRAIT(src, TRAIT_PREVENT_Z_FALL))
+		return FALSE
 	return !(movement_type & FLYING) && !throwing
 
 /atom/movable/proc/onZImpact(turf/T, levels)
@@ -142,6 +144,14 @@
 				return TRUE
 			return FALSE
 	return ..()
+
+/**
+* A wrapper for setDir that should only be able to fail by living mobs.
+*
+* Called from [/atom/movable/proc/keyLoop], this exists to be overwritten by living mobs with a check to see if we're actually alive enough to change directions
+*/
+/atom/movable/proc/keybind_face_direction(direction)
+	setDir(direction)
 
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE, obj/item/item_override)
 	testing("startpulling target: [AM]")
@@ -251,6 +261,7 @@
 
 	for(var/atom/movable/AM in buckled_mobs)
 		AM.set_glide_size(target)
+
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
 // To be removed on step_ conversion
@@ -322,6 +333,8 @@
 	if(loc != newloc)
 		if (!(direct & (direct - 1))) //Cardinal move
 			lastcardinal = direct
+			. = ..()
+		else if(istype(src, /obj/vehicle)) //Vehicles retain true diagonal movement
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			if (direct & NORTH)
@@ -445,6 +458,8 @@
 
 	unbuckle_all_mobs(force=1)
 
+	invisibility = INVISIBILITY_ABSTRACT
+
 	. = ..()
 	if(loc)
 		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
@@ -459,7 +474,6 @@
 	//We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
 	//If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
 	LAZYNULL(important_recursive_contents)
-	invisibility = INVISIBILITY_ABSTRACT
 	if(pulledby)
 		pulledby.stop_pulling()
 
@@ -468,6 +482,11 @@
 		orbiting = null
 
 	LAZYNULL(client_mobs_in_contents)
+
+	if(length(vis_locs)) // according to tg checking this pre-cut is actually faster
+		// vis_locs doesn't count as a reference to the things in it,
+		// but their vis_contents count as a reference to us, so we cut it
+		vis_locs.Cut()
 
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()
@@ -597,6 +616,12 @@
 	if (!target || speed <= 0 || move_resist == INFINITY)
 		return
 
+	var/bonus_throwforce = 0
+	if(isitem(src) && thrower && HAS_TRAIT(thrower, TRAIT_THROWINGARM))
+		range += 1
+		speed += 0.5
+		bonus_throwforce = 2
+
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_PRE_THROW, args) & COMPONENT_CANCEL_THROW)
 		return
 
@@ -639,6 +664,7 @@
 	TT.thrower = thrower
 	TT.diagonals_first = diagonals_first
 	TT.force = force
+	TT.bonus_throwforce = bonus_throwforce
 	TT.callback = callback
 	TT.extra = extra
 	if(!QDELETED(thrower))
@@ -718,15 +744,16 @@
 		return TRUE
 	return ..()
 
-// called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
+/// Called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
 	return
 
-// called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S)
+/// Called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
+/// If the mob putting the atom in storage is known, it is passed on as M.
+/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S, mob/M)
 	return
 
-//called when a mob resists while inside a container that is itself inside something.
+/// Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
 	return
 
@@ -1036,25 +1063,25 @@ GLOBAL_VAR_INIT(pixel_diff_time, 1)
 		language_holder = new initial_language_holder(src)
 		return language_holder
 
-/atom/movable/proc/grant_language(datum/language/dt, body = FALSE)
+/atom/movable/proc/grant_language(datum/language/dt, body = FALSE, source = LANGUAGE_SOURCE_GENERIC)
 	var/datum/language_holder/H = get_language_holder(!body)
-	H.grant_language(dt, body)
+	H.grant_language(dt, body, source)
 
-/atom/movable/proc/grant_all_languages(omnitongue=FALSE)
+/atom/movable/proc/grant_all_languages(omnitongue = FALSE, source = LANGUAGE_SOURCE_GENERIC)
 	var/datum/language_holder/H = get_language_holder()
-	H.grant_all_languages(omnitongue)
+	H.grant_all_languages(omnitongue, source)
 
 /atom/movable/proc/get_random_understood_language()
 	var/datum/language_holder/H = get_language_holder()
 	. = H.get_random_understood_language()
 
-/atom/movable/proc/remove_language(datum/language/dt, body = FALSE)
+/atom/movable/proc/remove_language(datum/language/dt, body = FALSE, source = LANGUAGE_SOURCE_GENERIC)
 	var/datum/language_holder/H = get_language_holder(!body)
-	H.remove_language(dt, body)
+	H.remove_language(dt, body, source)
 
-/atom/movable/proc/remove_all_languages()
+/atom/movable/proc/remove_all_languages(source = LANGUAGE_SOURCE_ALL)
 	var/datum/language_holder/H = get_language_holder()
-	H.remove_all_languages()
+	H.remove_all_languages(source)
 
 /atom/movable/proc/has_language(datum/language/dt)
 	var/datum/language_holder/H = get_language_holder()
@@ -1095,12 +1122,12 @@ GLOBAL_VAR_INIT(pixel_diff_time, 1)
 	var/highest_priority
 
 	for(var/datum/language/langtype as anything in H.languages)
-		if(!can_speak_in_language(langtype.type))
+		if(!can_speak_in_language(langtype))
 			continue
 
 		var/pri = initial(langtype.default_priority)
 		if(!highest_priority || (pri > highest_priority))
-			chosen_langtype = langtype.type
+			chosen_langtype = langtype
 			highest_priority = pri
 
 	H.selected_default_language = .
@@ -1286,4 +1313,3 @@ GLOBAL_VAR_INIT(pixel_diff_time, 1)
 			SSspatial_grid.remove_grid_awareness(movable_loc, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 		ASSOC_UNSETEMPTY(recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS)
 		UNSETEMPTY(movable_loc.important_recursive_contents)
-

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/self/message
 	name = "Message"
 	desc = "Latch onto the mind of one who is familiar to you, whispering a message or sending an intuitive projection into their head."
-	cost = 2
+	cost = 1
 	xp_gain = TRUE
 	releasedrain = 30
 	recharge_time = 60 SECONDS
@@ -49,7 +49,7 @@
 			if(alert(user, "Transmit as a worldessly projected vision or as a whispered message?", "", "Projection", "Message") == "Projection")
 				is_projection = TRUE
 
-			var/message = input(user, "You successfully make a connection! [is_projection == TRUE ? "What sensory vision are you trying to send into their mind?" : "What are you trying to whisper into their mind?"]")
+			var/message = sanitize(input(user, "You successfully make a connection! [is_projection == TRUE ? "What sensory vision are you trying to send into their mind?" : "What are you trying to whisper into their mind?"]"))
 			if(!message)
 				revert_cast()
 				return

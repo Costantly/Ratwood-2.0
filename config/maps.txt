@@ -16,8 +16,13 @@ endmap
 map dun_manor
 endmap
 
+<<<<<<< HEAD
 map roguetest
+=======
+map roguetest_nootherz
+>>>>>>> dd55faba90746dccde73c64a80bb046021ebfb05
 endmap
+
 
 map dun_world
 	votable
@@ -25,5 +30,13 @@ endmap
 
 map rockhill
 	default
+	votable
+endmap
+
+map byos
+	maxplayers 100
+endmap
+
+map deserttown
 	votable
 endmap

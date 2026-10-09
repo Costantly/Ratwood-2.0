@@ -3,6 +3,8 @@
 	domain = "The Day, The Sun, Order"
 	desc = "The Absolute Order is the glorious sunlight that permeates our lands and drives back evil. By Her Light is the world given Order, and by her Blessing is Nobility deigned to rule. Ravox stands at Her side to ensure Her Order does not become Tyranny."
 	worshippers = "Nobility, The Righteous, The Zealous"
+	virtues = "Servility, Honesty, Oppression"
+	sins = "Disloyalty, Undeath, Sloth"
 	mob_traits = list(TRAIT_APRICITY)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/ignition				= CLERIC_T0,
@@ -14,6 +16,7 @@
 					/obj/effect/proc_holder/spell/invoked/revive				= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/immolation			= CLERIC_T4,
 	)
+	energy_color = COLOR_PATRON_ASTRATA
 	confess_lines = list(
 		"ASTRATA IS MY LIGHT!",
 		"ASTRATA BRINGS LAW!",

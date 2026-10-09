@@ -23,6 +23,11 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		mob_examine_panel.ui_interact(usr)
 		return
 
+	if(href_list["task"] == "gnoll_view_tracked")
+		if(!ismob(usr) || usr != src)
+			return
+		gnoll_view_tracked_char()
+
 	if(href_list["inspect_limb"] && (observer_privilege || usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY)))
 		var/list/msg = list()
 		var/mob/user = usr
@@ -169,7 +174,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		return
 
 	if(href_list["undiesthing"]) //canUseTopic check for this is handled by mob/Topic()
-		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
+		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, grabs = FALSE, skipundies = TRUE))
 			to_chat(usr, span_warning("I can't reach that! Something is covering it."))
 			return
 		if(!underwear)
@@ -185,7 +190,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			underwear = null
 
 	if(href_list["legwearsthing"]) //canUseTopic check for this is handled by mob/Topic()
-		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
+		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, grabs = FALSE, skipundies = TRUE))
 			to_chat(usr, span_warning("I can't reach that! Something is covering it."))
 			return
 		if(!legwear_socks)
@@ -194,11 +199,14 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(do_after(usr, 50, needhand = 1, target = src))
 			var/obj/item/bodypart/chest = get_bodypart(BODY_ZONE_CHEST)
 			chest.remove_bodypart_feature(legwear_socks.legwears_feature)
-			underwear.forceMove(get_turf(src))
+			legwear_socks.forceMove(get_turf(src))
 			if(iscarbon(usr))
 				var/mob/living/carbon/C = usr
-				C.put_in_hands(underwear)
-			underwear = null
+				C.put_in_hands(legwear_socks)
+			legwear_socks = null
+	if(href_list["chastitything"])
+		modular_handle_chastitything(usr)
+		return
 
 	if(href_list["pockets"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY)) //TODO: Make it match (or intergrate it into) strippanel so you get 'item cannot fit here' warnings if mob_can_equip fails
 		var/pocket_side = href_list["pockets"]
@@ -508,7 +516,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			rumour_display = html_encode(rumour_display)
 			rumour_display = parsemarkdown_basic(rumour_display, hyperlink = TRUE)
 			msg += "<b>You recall what you heard around Town about [src]...</b><br>[rumour_display]"
-		if(((HAS_TRAIT(usr, TRAIT_NOBLE)) || observer_privilege) && length(noble_gossip))
+		if(((HAS_TRAIT(usr, TRAIT_NOBLE)) || (HAS_TRAIT(usr, TRAIT_SLEUTH)) || (HAS_TRAIT(usr, TRAIT_GOSSIPER)) || observer_privilege) && length(noble_gossip))
 			if(msg)
 				msg += "<br><br>"
 			var/gossip_display = noble_gossip
